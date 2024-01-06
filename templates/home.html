@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>This is Home Page</h1>
+
+<div class = "row">
+
+    {% for info in data %}
+
+    <div class="col-lg-4 col-md-6 col-sm-12">
+      <div class="card">
+        <div class="card-body" style="width: 100%">
+
+          {% for info2 in info.task.all %}
+            <p>
+              <h5 class="card-title">Task id: {{info2.id}} </h5>
+              <p>Task Assign Date: {{info2.TaskAssignDate}} </p>
+              <p>Task Description: {{info2.taskDescription}}</p>
+              <p>Task Category: {{info.CategoryName}}</p>
+            </p>
+
+            {% if info2.is_completed == False %}
+            
+            <a href="{% url 'edit_task' info2.id %}" class="btn btn-warning"
+            >Edit</a>
+            <a href="{% url 'delete_task' info2.id %}" class="btn btn-danger">Delete</a>
+
+            {% else %}
+                <h1>Completed</h1>
+            {% endif %}
+
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+{% endfor %}
+
+</div>
+
+
+{% endblock %}
+
+
